@@ -17,10 +17,6 @@ body {
     height: 100%;
 }
 
-p {
-    margin: inherit;
-}
-
 a {
     color: blue;
 }
@@ -39,6 +35,17 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+footer {
+    padding-bottom: 0;
+    width: 100%;
+    font-size: 11px;
+
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 1%;
+    background-color: var(--color-palette-background2);
 }
 
 .float_right {

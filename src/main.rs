@@ -2,6 +2,7 @@ use yew::prelude::*;
 
 mod flood_monitoring_api;
 mod header;
+mod footer;
 
 #[function_component(App)]
 fn app() -> Html {
@@ -33,6 +34,7 @@ fn app() -> Html {
                     format!("Loading")
                 }
             }</div>
+            <footer::Footer/>
         </div>
     }
 }
