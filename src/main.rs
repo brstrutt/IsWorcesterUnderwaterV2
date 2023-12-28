@@ -25,15 +25,19 @@ fn app() -> Html {
     }
 
     html! {
-        <div>
+        <div class="content_overlay">
             <header::Header/>
-            <div>{
-                if river_level.is_some() {
-                    format!("Level: {:?}", river_level.as_ref().unwrap().items[0].latestReading.value)
-                } else {
-                    format!("Loading")
-                }
-            }</div>
+            <main>
+                <div>
+                    {
+                        if river_level.is_some() {
+                            format!("Level: {:?}", river_level.as_ref().unwrap().items[0].latestReading.value)
+                        } else {
+                            format!("Loading")
+                        }
+                    }
+                </div>
+            </main>
             <footer::Footer/>
         </div>
     }

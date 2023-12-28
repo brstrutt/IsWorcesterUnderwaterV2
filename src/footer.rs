@@ -6,7 +6,7 @@ pub fn footer() -> Html {
         <footer>
             <div>{ "This uses Environment Agency flood and river level data from the real-time data API (Beta)" }</div>
             <div class="float_right">
-                <p>
+                <div>
                     { "Icons made by "}
                     <a href="https://www.flaticon.com/authors/catkuro" title="catkuro">
                         { "catkuro" }
@@ -15,7 +15,7 @@ pub fn footer() -> Html {
                     <a href="https://www.flaticon.com/" title="Flaticon">
                         { "www.flaticon.com" }
                     </a>
-                </p>
+                </div>
             </div>
         </footer>
     }
