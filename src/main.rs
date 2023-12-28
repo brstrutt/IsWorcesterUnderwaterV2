@@ -24,7 +24,7 @@ fn app() -> Html {
 
     html! {
         <div>{
-            if(river_level.is_some()) {
+            if river_level.is_some() {
                 format!("Level: {:?}", river_level.as_ref().unwrap().items[0].latestReading.value)
             } else {
                 format!("Loading")
