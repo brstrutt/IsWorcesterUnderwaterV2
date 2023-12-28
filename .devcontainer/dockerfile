@@ -1,5 +1,10 @@
 ## README at: https://github.com/devcontainers/templates/tree/main/src/alpine
-FROM mcr.microsoft.com/devcontainers/base:alpine-3.18
+FROM mcr.microsoft.com/devcontainers/base:bullseye
+
+RUN apt update
+RUN apt upgrade -y
+RUN apt install -y pkg-config
+
 USER vscode
 
 ## Install rust
