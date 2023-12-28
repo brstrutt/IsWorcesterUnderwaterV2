@@ -7,6 +7,24 @@ edition = "2021"
 
 [dependencies]
 yew = { git = "https://github.com/yewstack/yew/", features = ["csr"] }
-serde = "1.0.193"
-reqwest = { version = "0.11", features = ["json"] }
-tokio = { version = "1", features = ["full"] }
+# wasm
+wasm-bindgen-futures = "0.4"
+# make fetch calls
+gloo-net = "0.5"
+# deserialise json
+serde = { version = "1.0", features = ["derive"] }
+# log to browser console
+log = "0.4"
+wasm-logger = "0.2"
+console_error_panic_hook = "0.1"
+
+[dependencies.web-sys]
+version = "0.3"
+features = [
+  'Headers',
+  'Request',
+  'RequestInit',
+  'RequestMode',
+  'Response',
+  'Window',
+]

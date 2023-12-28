@@ -1,38 +1,30 @@
+use gloo_net::{http::Request, Error};
 use serde::Deserialize;
-use reqwest::Error;
 
 #[derive(Deserialize, Debug)]
-pub struct FloodMonitoringStationLatestReading {
-    value: f32
+pub struct LatestReading {
+    pub value: f32
 }
 
 #[derive(Deserialize, Debug)]
 #[allow(non_snake_case)]
-pub struct FloodMonitoringStationData {
-    latestReading: FloodMonitoringStationLatestReading
+pub struct Data {
+    pub latestReading: LatestReading
 }
 
 #[derive(Deserialize, Debug)]
-pub struct FloodMonitoringApiResponse {
-    items: Vec<FloodMonitoringStationData>
+pub struct Response {
+    pub items: Vec<Data>
 }
 
-#[tokio::main]
-pub async fn get_river_levels(monitoring_station_id: i32)-> Result<FloodMonitoringApiResponse, Error> {
-    let request_url = format!("https://environment.data.gov.uk/flood-monitoring/id/stations/{:?}/measures", monitoring_station_id);
-    let response = reqwest::get(request_url)
-                    .await?
-                    .json::<FloodMonitoringApiResponse>()
-                    .await?;
-    Ok(response)
-}
+pub async fn get_river_levels(monitoring_station_id: i32)-> Result<Response, Error> {
+    let request_url: String = format!("https://environment.data.gov.uk/flood-monitoring/id/stations/{:?}/measures", monitoring_station_id);
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+    let response_data = Request::get(&request_url)
+        .send()
+        .await?
+        .json()
+        .await?;
 
-    #[test]
-    fn test_run() {
-        assert_eq!(get_river_levels(2642).unwrap().items.len(), 1);
-    }
+    Ok(response_data)
 }
