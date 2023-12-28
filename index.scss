@@ -1,0 +1,47 @@
+:root {
+    --color-palette-background1:#EEEEEE;
+    --color-palette-background2:rgba(255, 255, 255, 0.6);
+    --color-palette-foreground:#111111;
+    --color-palette-highlight:#010101;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    background-color: var(--color-palette-background1);
+    font: 75% Helvetica;
+    color: var(--color-palette-foreground);
+    margin: inherit;
+    height: 100%;
+}
+
+p {
+    margin: inherit;
+}
+
+a {
+    color: blue;
+}
+
+header {
+    display: grid;
+    grid-template-columns: max-content max-content auto;
+    gap: 1%;
+    background-color: var(--color-palette-background2);
+    margin: 0px;
+    font-size: 200%;
+    font-weight: bold;
+}
+
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.float_right {
+    display: flex;
+    justify-content: flex-end;
+}

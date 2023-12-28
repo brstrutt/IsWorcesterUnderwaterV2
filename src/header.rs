@@ -10,7 +10,7 @@ pub fn header() -> Html {
             <div>
                 { "Diglis: ???M" }
             </div>
-            <div>
+            <div class="float_right">
                 { "Live Flood Alerts" }
             </div>
         </header>
