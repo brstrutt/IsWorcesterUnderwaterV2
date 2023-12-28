@@ -1,6 +1,7 @@
 use yew::prelude::*;
 
 mod flood_monitoring_api;
+mod header;
 
 #[function_component(App)]
 fn app() -> Html {
@@ -23,13 +24,16 @@ fn app() -> Html {
     }
 
     html! {
-        <div>{
-            if river_level.is_some() {
-                format!("Level: {:?}", river_level.as_ref().unwrap().items[0].latestReading.value)
-            } else {
-                format!("Loading")
-            }
-        }</div>
+        <div>
+            <header::Header/>
+            <div>{
+                if river_level.is_some() {
+                    format!("Level: {:?}", river_level.as_ref().unwrap().items[0].latestReading.value)
+                } else {
+                    format!("Loading")
+                }
+            }</div>
+        </div>
     }
 }
 
