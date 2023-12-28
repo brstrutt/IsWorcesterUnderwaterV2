@@ -11,7 +11,8 @@
 			"extensions": [
 				"ms-azuretools.vscode-docker",
 				"tamasfe.even-better-toml",
-				"serayuzgur.crates"
+				"serayuzgur.crates",
+				"rust-lang.rust-analyzer"
 			]
 		}
 	}
