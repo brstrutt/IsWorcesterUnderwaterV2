@@ -5,13 +5,21 @@ pub fn header() -> Html {
     html! {
         <header>
             <div>
-                { "Barbourne: ???M" }
+                <a href="https://check-for-flooding.service.gov.uk/station/2092">
+                    { "Barbourne" }
+                </a>
+                { ": ???M" }
             </div>
             <div>
-                { "Diglis: ???M" }
+                <a href="https://check-for-flooding.service.gov.uk/station/2039">
+                    { "Diglis" }
+                </a>
+                { ": ???M" }
             </div>
             <div class="float_right">
-                { "Live Flood Alerts" }
+                <a href="https://check-for-flooding.service.gov.uk/location?q=worcester">
+                    { "Live Flood Alerts" }
+                </a>
             </div>
         </header>
     }
