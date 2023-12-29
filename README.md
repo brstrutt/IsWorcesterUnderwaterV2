@@ -4,9 +4,15 @@ A rewrite of IsWorcesterUnderwater.co.uk to be a static site built using Rust an
 
 ## Development
 
-This project uses a vscode devcontainer. I recommend you use it.
+1. Clone the repo
+2. Open the devcontainer in vscode
+3. To see the site run `trunk serve`. This will also auto rebuild and refresh the page when you save any changes
+4. To build a release run `trunk build --release`. The site will be built in the *./dist* directory
 
-To build the project and host it locally, run `trunk serve`
+## Publishing
+
+1. Push to main
+2. Github actions should build the site and push to production automatically
 
 ## Tools
 
