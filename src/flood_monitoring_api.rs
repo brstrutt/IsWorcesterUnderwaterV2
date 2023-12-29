@@ -1,7 +1,7 @@
 use gloo_net::{http::Request, Error};
 use serde::Deserialize;
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, PartialEq, Clone, Copy, Debug)]
 pub struct LatestReading {
     pub value: f32
 }
