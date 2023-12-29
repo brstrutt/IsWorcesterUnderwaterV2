@@ -12,10 +12,9 @@ pub fn river_level_display(RiverLevelDisplayProps { barbourne_last_reading }: &R
     html! {
         <div>
             {
-                if barbourne_last_reading.is_some() {
-                    format!("Level: {:?}", barbourne_last_reading.as_ref().unwrap().value)
-                } else {
-                    format!("Loading")
+                match barbourne_last_reading {
+                    Some(river_level) => format!("Level: {:?}", river_level.value),
+                    _ => format!("Loading")
                 }
             }
         </div>
