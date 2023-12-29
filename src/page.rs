@@ -42,9 +42,6 @@ pub fn page() -> Html {
                     diglis_last_reading={*diglis_river_level}
                 />
                 <main>
-                    <river_level_display::Foreground 
-                        barbourne_last_reading={*barbourne_river_level}
-                    />
                 </main>
                 <Footer/>
             </div>
