@@ -1,6 +1,6 @@
 use yew::prelude::*;
 use super::flood_monitoring_api;
-use super::river_level_display::RiverLevelDisplay;
+use super::river_level_display;
 use super::header::Header;
 use super::footer::Footer;
 
@@ -33,14 +33,17 @@ fn use_river_level(monitoring_station_id: i32) -> UseStateHandle<Option<flood_mo
 pub fn page() -> Html {
     let barbourne_river_level = use_river_level(2642);
     html! {
-        <div class="content_overlay">
-            <Header/>
-            <main>
-                <RiverLevelDisplay 
-                    barbourne_last_reading={*barbourne_river_level}
-                />
-            </main>
-            <Footer/>
-        </div>
+        <>
+            <river_level_display::Background/> 
+            <div class="content_overlay">
+                <Header/>
+                <main>
+                    <river_level_display::Foreground 
+                        barbourne_last_reading={*barbourne_river_level}
+                    />
+                </main>
+                <Footer/>
+            </div>
+        </>
     }
 }
