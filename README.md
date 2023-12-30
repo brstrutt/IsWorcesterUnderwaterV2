@@ -6,7 +6,7 @@ A rewrite of IsWorcesterUnderwater.co.uk to be a static site built using Rust an
 
 1. Clone the repo
 2. Open the devcontainer in vscode
-3. To see the site run `trunk serve`. This will also auto rebuild and refresh the page when you save any changes
+3. To see the site run `trunk serve`. This will serve the site on `http://127.0.0.1:8080/IsWorcesterUnderwaterV2`. This will also auto rebuild and refresh the page when you save any changes
 4. To build a release run `trunk build --release`. The site will be built in the *./dist* directory
 
 ## Publishing
