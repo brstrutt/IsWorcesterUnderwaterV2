@@ -4,6 +4,7 @@ mod flood_monitoring_api;
 mod page;
 mod header;
 mod river_level_display;
+mod screen_point;
 mod footer;
 
 #[function_component(App)]
