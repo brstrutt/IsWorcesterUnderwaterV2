@@ -11,7 +11,7 @@ impl WaveAnimation {
         let left_height = 0.67;
         let right_height = 0.50;
 
-        let base_keyframe = generate_wave(left_height, right_height, 0.0, num_of_points);
+        let base_keyframe = generate_wave(left_height, right_height, 0.02, num_of_points);
 
         let mut animation = vec!();
         for i in 0..num_of_frames {
@@ -32,7 +32,17 @@ impl WaveAnimation {
 
 
 fn generate_wave(left_height: f64, right_height: f64, wave_height: f64, num_of_points: u32) -> Keyframe {
-    let base_line = interpolate_line(left_height, right_height, num_of_points);
+    let mut base_line = interpolate_line(left_height, right_height, num_of_points);
+
+    for (i, point) in base_line.iter_mut().enumerate() {
+        if i % 4 == 0 {
+            *point.y() += wave_height;
+        }
+        else if i % 2 == 0 {
+            *point.y() -= wave_height;
+        }
+    }
+
     base_line
 }
 

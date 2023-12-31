@@ -1,4 +1,4 @@
-use std::ops::{Add, Mul};
+use std::{ops::{Add, Mul}, slice::IterMut};
 
 use euclid::{Point2D, UnknownUnit};
 
@@ -37,6 +37,10 @@ impl Keyframe {
         self.0.iter().map(f).collect()
     }
 
+    pub fn iter_mut(&mut self) -> IterMut<ScreenPoint>{
+        self.0.iter_mut()
+    }
+
     fn to_string(&self) -> String {
         let mut keyframe_string = String::new();
     
@@ -59,6 +63,14 @@ pub struct ScreenPoint(Point2D<f64, UnknownUnit>);
 impl ScreenPoint {
     pub fn new(x: f64, y: f64) -> ScreenPoint {
         ScreenPoint {0: Point2D::new(x, y)}
+    }
+
+    pub fn x(&mut self) -> &mut f64 {
+        &mut self.0.x
+    }
+
+    pub fn y(&mut self) -> &mut f64 {
+        &mut self.0.y
     }
 
     fn to_string(&self) -> String {
