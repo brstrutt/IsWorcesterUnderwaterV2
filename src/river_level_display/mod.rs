@@ -1,6 +1,8 @@
+mod screen_point;
+
 use yew::prelude::*;
 
-use crate::screen_point::{ScreenPoint, Keyframe, get_keyframes_as_string};
+use self::screen_point::{Keyframe, ScreenPoint, get_keyframes_as_string};
 
 #[function_component(Background)]
 pub fn river_level_display_background() -> Html {
