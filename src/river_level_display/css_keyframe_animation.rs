@@ -1,4 +1,4 @@
-use std::{ops::{Add, Mul, Sub, AddAssign, Div}, slice::IterMut, iter::Map};
+use std::{ops::{Add, Mul, Sub, AddAssign, Div, SubAssign}, slice::IterMut, iter::Map};
 
 use euclid::{Point2D, UnknownUnit};
 
@@ -124,6 +124,14 @@ impl Sub<f64> for ScreenPoint {
 
     fn sub(self, other: f64) -> Self {
         Self::new(self.0.x - other, self.0.y - other)
+    }
+}
+
+impl SubAssign<ScreenPoint> for ScreenPoint {
+
+    fn sub_assign(&mut self, other: ScreenPoint) {
+        self.0.x -= other.0.x;
+        self.0.y -= other.0.y;
     }
 }
 

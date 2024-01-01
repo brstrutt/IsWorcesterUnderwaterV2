@@ -13,7 +13,7 @@ impl WaveAnimation {
         let base_keyframe = generate_wave_shape(left_height, right_height, 0.005, num_of_points);
 
         let num_of_gaps = num_of_points as f64 - 1.0;
-        let translation_between_frames = ScreenPoint::new(1.0, left_height - right_height) / num_of_gaps;
+        let translation_between_frames = ScreenPoint::new(1.0, right_height - left_height) / num_of_gaps;
 
         let num_of_frames = 4;
         let mut animation = vec!();
@@ -60,7 +60,7 @@ fn generate_wave_shape(left_height: f64, right_height: f64, wave_height: f64, nu
 
 fn interpolate_line(left_height: f64, right_height: f64, num_of_points: u32) -> Keyframe {
     let num_of_gaps = num_of_points as f64 - 1.0;
-    let height_diff_between_sides = left_height - right_height;
+    let height_diff_between_sides = right_height - left_height;
 
     let height_diff_between_points = height_diff_between_sides / num_of_gaps;
     let width_diff_between_points = 1.0 / num_of_gaps;
