@@ -15,10 +15,15 @@ pub struct BackgroundProps {
 
 #[function_component(Background)]
 pub fn river_level_display_background(BackgroundProps {barbourne_last_reading, diglis_last_reading}: &BackgroundProps) -> Html {
-    let barbourne_flood_percentage = get_flood_percentage(barbourne_last_reading.value as f64, 2.0, 4.0);
-    let diglis_flood_percentage = get_flood_percentage(diglis_last_reading.value as f64, 1.5, 3.3);
 
-    let wave_animation = WaveAnimation::new(1.0 - barbourne_flood_percentage, 1.0 - diglis_flood_percentage);
+    let wave_animation = use_memo(
+        (*barbourne_last_reading, *diglis_last_reading), 
+        |(barbourne_reading, diglis_reading)| -> WaveAnimation {
+            let barbourne_flood_percentage = get_flood_percentage(barbourne_reading.value as f64, 2.0, 4.0);
+            let diglis_flood_percentage = get_flood_percentage(diglis_reading.value as f64, 1.5, 3.3);
+            WaveAnimation::new(1.0 - barbourne_flood_percentage, 1.0 - diglis_flood_percentage)
+        }
+    );
 
     html! {
         <>
