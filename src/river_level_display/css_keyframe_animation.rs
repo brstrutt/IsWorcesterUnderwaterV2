@@ -1,4 +1,4 @@
-use std::{ops::{Add, Mul}, slice::IterMut};
+use std::{ops::{Add, Mul, Sub, AddAssign}, slice::IterMut, iter::Map};
 
 use euclid::{Point2D, UnknownUnit};
 
@@ -33,12 +33,23 @@ impl Keyframe {
         Keyframe {0: point}
     }
 
-    pub fn map<B, F: FnMut(&ScreenPoint) -> B>(&self, f: F) -> Vec<B> {
-        self.0.iter().map(f).collect()
+    pub fn map<B, F: FnMut(&ScreenPoint) -> B>(&self, f: F) -> Map<std::slice::Iter<ScreenPoint>, F> {
+        self.0.iter().map(f)
     }
 
     pub fn iter_mut(&mut self) -> IterMut<ScreenPoint>{
         self.0.iter_mut()
+    }
+
+    pub fn move_offscreen_left_keyframes_onscreen_on_the_right(&mut self, translation: ScreenPoint) {
+        let num_of_keyframes = self.0.len();
+        if num_of_keyframes < 1 { return }
+        log::debug!("HMMM: {:?}", self.0);
+        while self.0.first_mut().unwrap().x() < &mut 0.0 {
+            self.0.rotate_left(1);
+            *(self.0.last_mut().unwrap()) += translation.clone() * (num_of_keyframes as f64 + 1.0);
+        }
+        log::debug!("HMMM2: {:?}", self.0);
     }
 
     fn to_string(&self) -> String {
@@ -57,7 +68,7 @@ impl Keyframe {
     }
 }
 
-#[derive(PartialEq, Clone)]
+#[derive(PartialEq, Clone, Debug)]
 pub struct ScreenPoint(Point2D<f64, UnknownUnit>);
 
 impl ScreenPoint {
@@ -78,11 +89,43 @@ impl ScreenPoint {
     }
 }
 
+impl Add<ScreenPoint> for ScreenPoint {
+    type Output = Self;
+
+    fn add(self, other: ScreenPoint) -> Self {
+        Self::new(self.0.x + other.0.x, self.0.y + other.0.y)
+    }
+}
+
 impl Add<f64> for ScreenPoint {
     type Output = Self;
 
     fn add(self, other: f64) -> Self {
         Self::new(self.0.x + other, self.0.y + other)
+    }
+}
+
+impl AddAssign<ScreenPoint> for ScreenPoint {
+
+    fn add_assign(&mut self, other: ScreenPoint) {
+        self.0.x += other.0.x;
+        self.0.y += other.0.y;
+    }
+}
+
+impl Sub<ScreenPoint> for ScreenPoint {
+    type Output = Self;
+
+    fn sub(self, other: ScreenPoint) -> Self {
+        Self::new(self.0.x - other.0.x, self.0.y - other.0.y)
+    }
+}
+
+impl Sub<f64> for ScreenPoint {
+    type Output = Self;
+
+    fn sub(self, other: f64) -> Self {
+        Self::new(self.0.x - other, self.0.y - other)
     }
 }
 

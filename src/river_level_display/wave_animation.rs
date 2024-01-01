@@ -1,3 +1,5 @@
+use rand::Rng;
+
 use super::css_keyframe_animation::{Animation, Keyframe, ScreenPoint};
 
 pub struct WaveAnimation {
@@ -6,22 +8,35 @@ pub struct WaveAnimation {
 
 impl WaveAnimation {
     pub fn new() -> WaveAnimation {
-        let num_of_frames = 4;
         let num_of_points = 20;
         let left_height = 0.67;
         let right_height = 0.50;
 
-        let base_keyframe = generate_wave(left_height, right_height, 0.02, num_of_points);
+        let base_keyframe = generate_wave_shape(left_height, right_height, 0.02, num_of_points);
 
+        let num_of_gaps = num_of_points as f64 - 1.0;
+        let translation_between_frames = ScreenPoint::new(1.0/num_of_gaps, (right_height - left_height) / num_of_gaps);
+
+        let num_of_frames = 4;
         let mut animation = vec!();
+        let mut random_number_generator = rand::thread_rng();
         for i in 0..num_of_frames {
-            animation.push(
-                Keyframe::new(
-                    base_keyframe
-                    .map(|point| point.clone() * (0.02 * i as f64 + 1.0))
-                )
-            );
+            let translation_between_frames = translation_between_frames.clone();
+            
+            let new_keyframe = base_keyframe.clone()
+            .map(|point| point.clone() - translation_between_frames.clone() * i as f64)
+            .map(|point| {
+                let random_y_variation = (random_number_generator.gen::<f64>() - 0.5) / 50.0;
+                point.clone() + ScreenPoint::new(0.0, random_y_variation)
+            })
+            .collect();
+
+            let mut new_keyframe = Keyframe::new(new_keyframe);
+            new_keyframe.move_offscreen_left_keyframes_onscreen_on_the_right(translation_between_frames);
+            
+            animation.push(new_keyframe);
         }
+
         WaveAnimation {animation: Animation::new(animation)}
     }
 
@@ -30,8 +45,7 @@ impl WaveAnimation {
     }
 }
 
-
-fn generate_wave(left_height: f64, right_height: f64, wave_height: f64, num_of_points: u32) -> Keyframe {
+fn generate_wave_shape(left_height: f64, right_height: f64, wave_height: f64, num_of_points: u32) -> Keyframe {
     let mut base_line = interpolate_line(left_height, right_height, num_of_points);
 
     for (i, point) in base_line.iter_mut().enumerate() {
