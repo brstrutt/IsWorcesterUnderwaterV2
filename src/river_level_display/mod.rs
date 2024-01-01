@@ -3,13 +3,22 @@ mod wave_animation;
 
 use yew::prelude::*;
 
+use crate::flood_monitoring_api::LatestReading;
+
 use self::wave_animation::WaveAnimation;
 
+#[derive(Properties, PartialEq)]
+pub struct BackgroundProps {
+    pub barbourne_last_reading: LatestReading,
+    pub diglis_last_reading: LatestReading
+}
 
 #[function_component(Background)]
-pub fn river_level_display_background() -> Html {
+pub fn river_level_display_background(BackgroundProps {barbourne_last_reading, diglis_last_reading}: &BackgroundProps) -> Html {
+    let barbourne_flood_percentage = get_flood_percentage(barbourne_last_reading.value as f64, 2.0, 4.0);
+    let diglis_flood_percentage = get_flood_percentage(diglis_last_reading.value as f64, 1.5, 3.3);
 
-    let wave_animation = WaveAnimation::new();
+    let wave_animation = WaveAnimation::new(1.0 - barbourne_flood_percentage, 1.0 - diglis_flood_percentage);
 
     html! {
         <>
@@ -36,4 +45,14 @@ pub fn river_level_display_background() -> Html {
             </div>
         </>
     }
+}
+
+fn get_flood_percentage(current_level: f64, normal_level: f64, risky_level: f64) -> f64 {
+	let quarter = risky_level - normal_level; // Calculate what 25% of the range is
+	let base = normal_level - quarter; // Calculate what value 0% would be, aka the base of the range
+
+	let scaled_level = current_level - base;
+	let percentage_multiplier = 1.0 / (4.0 * quarter);
+	let percentage = scaled_level * percentage_multiplier;
+	percentage.min(1.0).max(0.0)
 }

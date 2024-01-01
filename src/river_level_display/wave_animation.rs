@@ -7,12 +7,10 @@ pub struct WaveAnimation {
 }
 
 impl WaveAnimation {
-    pub fn new() -> WaveAnimation {
+    pub fn new(left_height: f64, right_height: f64) -> WaveAnimation {
         let num_of_points = 20;
-        let left_height = 0.47;
-        let right_height = 0.80;
 
-        let base_keyframe = generate_wave_shape(left_height, right_height, 0.02, num_of_points);
+        let base_keyframe = generate_wave_shape(left_height, right_height, 0.005, num_of_points);
 
         let num_of_gaps = num_of_points as f64 - 1.0;
         let translation_between_frames = ScreenPoint::new(1.0, left_height - right_height) / num_of_gaps;

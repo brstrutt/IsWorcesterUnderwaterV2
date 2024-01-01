@@ -33,9 +33,15 @@ fn use_river_level(monitoring_station_id: i32) -> UseStateHandle<Option<flood_mo
 pub fn page() -> Html {
     let barbourne_river_level = use_river_level(2642);
     let diglis_river_level = use_river_level(2085);
+
     html! {
         <>
-            <river_level_display::Background/> 
+            if barbourne_river_level.is_some() && diglis_river_level.is_some() {
+                <river_level_display::Background
+                    barbourne_last_reading={barbourne_river_level.unwrap()}
+                    diglis_last_reading={diglis_river_level.unwrap()}
+                />
+            }
             <div class="content_overlay">
                 <Header
                     barbourne_last_reading={*barbourne_river_level}
