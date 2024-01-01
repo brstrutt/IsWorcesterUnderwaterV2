@@ -89,35 +89,35 @@ svg text{
         clip-path: polygon(
             0% 0%,
             var(--Keyframe0),
-            100% 0%
+            100% 0% 
         );
     }
     25%{
         clip-path: polygon(
             0% 0%,
             var(--Keyframe1),
-            100 0%
+            100% 0%
         );
     }
     50%{
         clip-path: polygon(
             0% 0%,
             var(--Keyframe2),
-            100 0%
+            100% 0%
         );
     }
     75%{
         clip-path: polygon(
             0% 0%,
             var(--Keyframe3),
-            100 0%
+            100% 0%
         );
     }
     100%{
         clip-path: polygon(
             0% 0%,
             var(--Keyframe0),
-            100 0%
+            100% 0%
         );
     }
 }
