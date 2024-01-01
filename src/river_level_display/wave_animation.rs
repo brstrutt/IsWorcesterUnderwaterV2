@@ -24,7 +24,7 @@ impl WaveAnimation {
             let new_keyframe = base_keyframe.clone()
             .map(|point| point.clone() - translation_between_frames.clone() * i as f64)
             .map(|point| {
-                let random_y_variation = (random_number_generator.gen::<f64>() - 0.5) / 50.0;
+                let random_y_variation = (random_number_generator.gen::<f64>() - 0.5) / 500.0;
                 point.clone() + ScreenPoint::new(0.0, random_y_variation)
             })
             .collect();
