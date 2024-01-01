@@ -1,4 +1,4 @@
-use std::{ops::{Add, Mul, Sub, AddAssign}, slice::IterMut, iter::Map};
+use std::{ops::{Add, Mul, Sub, AddAssign, Div}, slice::IterMut, iter::Map};
 
 use euclid::{Point2D, UnknownUnit};
 
@@ -44,12 +44,10 @@ impl Keyframe {
     pub fn move_offscreen_left_keyframes_onscreen_on_the_right(&mut self, translation: ScreenPoint) {
         let num_of_keyframes = self.0.len();
         if num_of_keyframes < 1 { return }
-        log::debug!("HMMM: {:?}", self.0);
         while self.0.first_mut().unwrap().x() < &mut 0.0 {
             self.0.rotate_left(1);
             *(self.0.last_mut().unwrap()) += translation.clone() * (num_of_keyframes as f64 + 1.0);
         }
-        log::debug!("HMMM2: {:?}", self.0);
     }
 
     fn to_string(&self) -> String {
@@ -134,5 +132,13 @@ impl Mul<f64> for ScreenPoint {
 
     fn mul(self, other: f64) -> Self {
         Self::new(self.0.x * other, self.0.y * other)
+    }
+}
+
+impl Div<f64> for ScreenPoint {
+    type Output = Self;
+
+    fn div(self, other: f64) -> Self {
+        Self::new(self.0.x / other, self.0.y / other)
     }
 }
