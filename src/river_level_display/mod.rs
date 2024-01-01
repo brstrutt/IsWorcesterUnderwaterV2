@@ -22,26 +22,42 @@ pub fn river_level_display_background(BackgroundProps {barbourne_last_reading, d
 
     html! {
         <>
-            <div class="full_canvas">
+            <div
+                class="full_canvas"
+                style={wave_animation.to_string()}
+            >
                 <div 
                     class="full_canvas background_water"
                     color="aqua"
-                    style={wave_animation.to_string()}
                 />
-            </div>
-            <div 
-                class="full_canvas result_wrapper"
-                style="color: black; --Keyframe0 animation: waves 10s linear infinite;"
-            >
-                <h1
-                    class="result_content"
-                    style="color: black;"
+                <div 
+                    class="full_canvas background_water_2"
+                    color="aqua"
+                />
+                <div 
+                    class="full_canvas clipping_water ShowBelowWaterLevel"
+                    color="blue"
+                />
+                <div 
+                    class="full_canvas result_wrapper ShowAboveWaterLevel"
                 >
-                    {"No"}
-                </h1>
-            </div>
-            <div class="full_canvas result_wrapper ShowBelowWaterLevel">
-                <h1 class="result_content" style="color: white;">{"Yes"}</h1>
+                    <h1
+                        class="result_content"
+                        style="color: black;"
+                    >
+                        {"No"}
+                    </h1>
+                </div>
+                <div
+                    class="full_canvas result_wrapper ShowBelowWaterLevel"
+                >
+                    <h1
+                        class="result_content" 
+                        style="color: white;"
+                    >
+                        {"Yes"}
+                    </h1>
+                </div>
             </div>
         </>
     }
