@@ -34,10 +34,13 @@ struct DepthMeterProps {
 fn depth_meter(DepthMeterProps {position, meter_range}: &DepthMeterProps) -> Html {
     let meter_max_height = 6;
 
-    let base_height = height_to_screenspace::get_flood_percentage(0.0, *meter_range);
-    let top_height = height_to_screenspace::get_flood_percentage(meter_max_height as f64, *meter_range);
+    let bottom_height = height_to_screenspace::get_flood_percentage(-1.0, *meter_range);
+    let bottom_height = bottom_height * 100.0;
 
-    let height_style = format!("top: {}%; bottom: {}%", 100.0 - top_height*100.0, base_height*100.0);
+    let top_height = height_to_screenspace::get_flood_percentage(meter_max_height as f64 + 0.2, *meter_range);
+    let top_height = 100.0 - top_height * 100.0;
+
+    let height_style = format!("top: {}%; bottom: {}%", top_height, bottom_height);
 
     let position_class = match position {
         MeterPosition::Left => "left",
@@ -48,7 +51,7 @@ fn depth_meter(DepthMeterProps {position, meter_range}: &DepthMeterProps) -> Htm
 
     let small_markings = (1..=4).map(|_| html! {<SmallMarking/>}).collect::<Html>();
 
-    let all_markings = (1..=meter_max_height).rev().map(
+    let all_markings = (0..=meter_max_height).rev().map(
         |height| html! {
             <>
                 <LargeMarking position={*position} height={height}/>
@@ -60,8 +63,9 @@ fn depth_meter(DepthMeterProps {position, meter_range}: &DepthMeterProps) -> Htm
     html! {
         <div class={marker_column_class}>
             <div class="marker" style={height_style}>
+                <SmallMarking/>
                 {all_markings}
-                <LargeMarking position={*position} height={0}/>
+                <LargeMarking position={*position} height={-1}/>
             </div>
         </div>
     }
@@ -79,7 +83,7 @@ fn small_marking() -> Html {
 #[derive(Properties, PartialEq)]
 struct LargeMarkingProps {
     pub position: MeterPosition,
-    pub height: u32
+    pub height: i32
 }
 
 #[function_component(LargeMarking)]
