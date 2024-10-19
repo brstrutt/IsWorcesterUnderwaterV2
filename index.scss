@@ -1,3 +1,5 @@
+@import "./src/styles.scss";
+
 :root {
     --color-palette-background1:#EEEEEE;
     --color-palette-background2:rgba(255, 255, 255, 0.6);
@@ -64,7 +66,6 @@ footer {
     justify-content: flex-end;
 }
 
-
 .full_canvas{
     width: 100%;
     height: 100%;
@@ -72,5 +73,3 @@ footer {
     top: 0;
     left: 0;
 }
-
-@import "./src/river_level_display/styles.scss"
