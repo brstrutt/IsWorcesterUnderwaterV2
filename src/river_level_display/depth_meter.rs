@@ -34,39 +34,53 @@ struct DepthMeterProps {
 fn depth_meter(DepthMeterProps {position, meter_range}: &DepthMeterProps) -> Html {
     let meter_max_height = 6;
 
-    let bottom_height = height_to_screenspace::get_flood_percentage(-1.0, *meter_range);
-    let bottom_height = bottom_height * 100.0;
+    let height_style = format!(
+        "top: {}%; bottom: {}%", 
+        100.0 - height_to_screenspace::get_flood_percentage(meter_max_height as f64, *meter_range) * 100.0,
+        height_to_screenspace::get_flood_percentage(-1.0, *meter_range) * 100.0
+    );
 
-    let top_height = height_to_screenspace::get_flood_percentage(meter_max_height as f64, *meter_range);
-    let top_height = 100.0 - top_height * 100.0;
-
-    let height_style = format!("top: {}%; bottom: {}%", top_height, bottom_height);
-
-    let position_class = match position {
-        MeterPosition::Left => "left",
-        MeterPosition::Right => "right"
-    };
-
-    let marker_column_class = format!("marker_column {}", position_class);
-
-    let small_markings = (1..=4).map(|_| html! {<SmallMarking/>}).collect::<Html>();
-
-    let all_markings = (0..=meter_max_height).rev().map(
-        |height| html! {
-            <>
-                <LargeMarking position={*position} height={height}/>
-                {small_markings.clone()}
-            </>
+    let marker_column_class = format!(
+        "marker_column {}", 
+        match position {
+            MeterPosition::Left => "left",
+            MeterPosition::Right => "right"
         }
-    ).collect::<Html>();
+    );
 
     html! {
         <div class={marker_column_class}>
             <div class="marker" style={height_style}>
-                {all_markings}
-                <LargeMarking position={*position} height={-1}/>
+                {
+                    (0..=meter_max_height)
+                    .rev()
+                    .map(|height| 
+                        html! {
+                            <DepthMeterSegment
+                                position={*position}
+                                height_label={height.to_string()}
+                            />
+                        }
+                    ).collect::<Html>()}
+                <LargeMarking position={*position} height_label={"-1"}/>
             </div>
         </div>
+    }
+}
+
+#[derive(Properties, PartialEq)]
+struct DepthMeterSegmentProps {
+    pub position: MeterPosition,
+    pub height_label: AttrValue
+}
+
+#[function_component(DepthMeterSegment)]
+fn depth_meter_segment(DepthMeterSegmentProps{position, height_label}: &DepthMeterSegmentProps) -> Html {
+    html! {
+        <>
+            <LargeMarking position={*position} height_label={height_label}/>
+            {(1..=4).map(|_| html! {<SmallMarking/>}).collect::<Html>()}
+        </>
     }
 }
 
@@ -82,12 +96,12 @@ fn small_marking() -> Html {
 #[derive(Properties, PartialEq)]
 struct LargeMarkingProps {
     pub position: MeterPosition,
-    pub height: i32
+    pub height_label: AttrValue
 }
 
 #[function_component(LargeMarking)]
-fn large_marking(LargeMarkingProps {position, height}: &LargeMarkingProps) -> Html {
-    let height_label = html! { <div class="height_label">{format!("{}m", height)}</div> };
+fn large_marking(LargeMarkingProps {position, height_label}: &LargeMarkingProps) -> Html {
+    let height_label = html! { <div class="height_label">{format!("{}m", height_label)}</div> };
 
     match position {
         MeterPosition::Left => html! {

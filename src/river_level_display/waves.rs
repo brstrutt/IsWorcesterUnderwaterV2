@@ -24,8 +24,8 @@ pub fn waves() -> Html {
 
 #[derive(Properties, PartialEq)]
 pub struct SolubleTextProps {
-    pub shown_above_water: String,
-    pub shown_below_water: String
+    pub shown_above_water: AttrValue,
+    pub shown_below_water: AttrValue
 }
 
 #[function_component(SolubleText)]
@@ -39,7 +39,7 @@ pub fn soluble_text(SolubleTextProps {shown_above_water, shown_below_water}: &So
                     class="result_content"
                     style="color: black;"
                 >
-                    {shown_above_water}
+                    {shown_above_water.to_string()}
                 </h1>
             </div>
             <div
@@ -49,7 +49,7 @@ pub fn soluble_text(SolubleTextProps {shown_above_water, shown_below_water}: &So
                     class="result_content" 
                     style="color: white;"
                 >
-                    {shown_below_water}
+                    {shown_below_water.to_string()}
                 </h1>
             </div>
         </>
