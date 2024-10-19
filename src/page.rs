@@ -47,8 +47,7 @@ pub fn page() -> Html {
                     barbourne_last_reading={*barbourne_river_level}
                     diglis_last_reading={*diglis_river_level}
                 />
-                <main>
-                </main>
+                <main/>
                 <Footer/>
             </div>
         </>
