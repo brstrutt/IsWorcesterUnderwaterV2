@@ -15,12 +15,10 @@
             position: absolute;
             width: 5%;
 
-            background-color: rgb(182, 178, 153);
-
             display: flex;
             justify-content:space-between;
             flex-direction: column;
-            overflow: hidden;
+            overflow: visible;
             
         
             .depth_row {

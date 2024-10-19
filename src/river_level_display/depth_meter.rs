@@ -37,7 +37,7 @@ fn depth_meter(DepthMeterProps {position, meter_range}: &DepthMeterProps) -> Htm
     let bottom_height = height_to_screenspace::get_flood_percentage(-1.0, *meter_range);
     let bottom_height = bottom_height * 100.0;
 
-    let top_height = height_to_screenspace::get_flood_percentage(meter_max_height as f64 + 0.2, *meter_range);
+    let top_height = height_to_screenspace::get_flood_percentage(meter_max_height as f64, *meter_range);
     let top_height = 100.0 - top_height * 100.0;
 
     let height_style = format!("top: {}%; bottom: {}%", top_height, bottom_height);
@@ -63,7 +63,6 @@ fn depth_meter(DepthMeterProps {position, meter_range}: &DepthMeterProps) -> Htm
     html! {
         <div class={marker_column_class}>
             <div class="marker" style={height_style}>
-                <SmallMarking/>
                 {all_markings}
                 <LargeMarking position={*position} height={-1}/>
             </div>
