@@ -1,8 +1,6 @@
 mod css_keyframe_animation;
 mod wave_animation;
 
-use std::string;
-
 use yew::prelude::*;
 
 use crate::flood_monitoring_api::LatestReading;
@@ -34,6 +32,7 @@ pub fn river_level_display_background(BackgroundProps {barbourne_last_reading, d
                 style={wave_animation.to_string()}
             >
                 <Waves/>
+                <RiverLevelMarkers/>
                 <SolubleText
                     shown_above_water="No"
                     shown_below_water="Yes"
@@ -95,6 +94,138 @@ fn soluble_text(SolubleTextProps {shown_above_water, shown_below_water}: &Solubl
                 </h1>
             </div>
         </>
+    }
+}
+
+#[function_component(RiverLevelMarkers)]
+fn river_level_markers() -> Html {
+    html! {
+        <div class="depth_meter_container">
+            <div class="left marker">
+                <div class="depth_row">
+                    <div class="block small"/>
+                </div>
+                <div class="depth_row">
+                    <div class="block small"/>
+                </div>
+                <div class="depth_row">
+                    <div class="block small"/>
+                </div>
+                <div class="depth_row">
+                    <div class="block small"/>
+                </div>
+                <div class="depth_row">
+                    <div class="block large"/>
+                </div>
+                <div class="depth_row">
+                    <div class="block small"/>
+                </div>
+                <div class="depth_row">
+                    <div class="block small"/>
+                </div>
+                <div class="depth_row">
+                    <div class="block small"/>
+                </div>
+                <div class="depth_row">
+                    <div class="block small"/>
+                </div>
+                <div class="depth_row">
+                    <div class="block large"/>
+                </div>
+                <div class="depth_row">
+                    <div class="block small"/>
+                </div>
+                <div class="depth_row">
+                    <div class="block small"/>
+                </div>
+                <div class="depth_row">
+                    <div class="block small"/>
+                </div>
+                <div class="depth_row">
+                    <div class="block small"/>
+                </div>
+                <div class="depth_row">
+                    <div class="block large"/>
+                </div>
+                <div class="depth_row">
+                    <div class="block small"/>
+                </div>
+                <div class="depth_row">
+                    <div class="block small"/>
+                </div>
+                <div class="depth_row">
+                    <div class="block small"/>
+                </div>
+                <div class="depth_row">
+                    <div class="block small"/>
+                </div>
+                <div class="depth_row">
+                    <div class="block large"/>
+                </div>
+            </div>
+            <div class="right marker">
+                <div class="depth_row">
+                    <div class="block small"/>
+                </div>
+                <div class="depth_row">
+                    <div class="block small"/>
+                </div>
+                <div class="depth_row">
+                    <div class="block small"/>
+                </div>
+                <div class="depth_row">
+                    <div class="block small"/>
+                </div>
+                <div class="depth_row">
+                    <div class="block large"/>
+                </div>
+                <div class="depth_row">
+                    <div class="block small"/>
+                </div>
+                <div class="depth_row">
+                    <div class="block small"/>
+                </div>
+                <div class="depth_row">
+                    <div class="block small"/>
+                </div>
+                <div class="depth_row">
+                    <div class="block small"/>
+                </div>
+                <div class="depth_row">
+                    <div class="block large"/>
+                </div>
+                <div class="depth_row">
+                    <div class="block small"/>
+                </div>
+                <div class="depth_row">
+                    <div class="block small"/>
+                </div>
+                <div class="depth_row">
+                    <div class="block small"/>
+                </div>
+                <div class="depth_row">
+                    <div class="block small"/>
+                </div>
+                <div class="depth_row">
+                    <div class="block large"/>
+                </div>
+                <div class="depth_row">
+                    <div class="block small"/>
+                </div>
+                <div class="depth_row">
+                    <div class="block small"/>
+                </div>
+                <div class="depth_row">
+                    <div class="block small"/>
+                </div>
+                <div class="depth_row">
+                    <div class="block small"/>
+                </div>
+                <div class="depth_row">
+                    <div class="block large"/>
+                </div>
+            </div>
+        </div>
     }
 }
 

@@ -1,18 +1,18 @@
 .clipping_water{
     z-index: -1;
-    background-color: blue;
+    background-color: #0000FF50;
 }
 
 .background_water{
     z-index: -2;
-    background-color: aqua;
+    background-color: #00FFFF50;
     animation: waves 10s linear infinite;
     animation-delay: -3s;
 }
 
 .background_water_2{
     z-index: -3;
-    background-color: cadetblue;
+    background-color: #5f9ea050;
     animation: waves 10s ease-in-out infinite;
     animation-delay: -6s;
 }

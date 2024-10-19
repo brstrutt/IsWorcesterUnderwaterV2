@@ -1,0 +1,43 @@
+.depth_meter_container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    z-index: -4;
+    position: absolute;
+
+    .marker {
+        height: 100%;
+        width: 5%;
+        background-color: rgb(182, 178, 153);
+    
+        .depth_row {
+            .block {
+                background-color: black;
+                height: 4px;
+                margin-top: 40px;
+            }
+        
+            .small {
+                width: 50%;
+            }
+            .large {
+                width: 100%;
+            }
+        }
+    }
+
+    .left {
+        .depth_row {
+            display: flex;
+            justify-content: start;
+        }
+    }
+
+    .right {
+        .depth_row {
+            display: flex;
+            justify-content: end;
+        }
+    }
+}
