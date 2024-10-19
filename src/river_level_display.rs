@@ -37,7 +37,10 @@ pub fn river_level_display_background(BackgroundProps {barbourne_last_reading, d
                 style={wave_animation.to_string()}
             >
                 <waves::Waves/>
-                <depth_meter::RiverLevelMarkers/>
+                <depth_meter::RiverLevelMarkers
+                    left_marker_range={barbourne_range}
+                    right_marker_range={diglis_range}
+                />
                 <waves::SolubleText
                     shown_above_water="No"
                     shown_below_water="Yes"
