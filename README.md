@@ -1,6 +1,8 @@
 # IsWorcesterUnderwaterV2
 
-A rewrite of IsWorcesterUnderwater.co.uk to be a static site built using Rust and Yew. Intended to replace the old PHP/HTML/CSS implementation.
+![GitHub Last Commit](https://img.shields.io/github/last-commit/brstrutt/IsWorcesterUnderwaterV2?logo=github)
+
+A rewrite of [isworcesterunderwater.co.uk](https://isworcesterunderwater.co.uk) to be a static site built using Rust and Yew.
 
 ## Development
 
@@ -21,3 +23,7 @@ A rewrite of IsWorcesterUnderwater.co.uk to be a static site built using Rust an
 - `Cargo`: standard tool for working with `Rust`. Used for building/test/managing dependencies
 - `Yew`: Frontend library for developing webapps in `Rust`. Think `React` but for `Rust`
 - `Trunk`: Tool to make developing webapps much easier in `Rust`. Use this instead of `Cargo` for building/running the project.
+
+## Previous version
+
+Original implementation can be found [here](https://github.com/brstrutt/IsWorcesterUnderwater)
