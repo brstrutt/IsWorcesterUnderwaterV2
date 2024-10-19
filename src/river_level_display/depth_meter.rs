@@ -61,6 +61,7 @@ fn depth_meter(DepthMeterProps {position, meter_range}: &DepthMeterProps) -> Htm
         <div class={marker_column_class}>
             <div class="marker" style={height_style}>
                 {all_markings}
+                <LargeMarking position={*position} height={0}/>
             </div>
         </div>
     }
