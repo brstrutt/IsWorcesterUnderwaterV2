@@ -58,3 +58,13 @@ I can't just inject css keyframe variables like I did with PHP, so I'm thinking 
 Ok it looks like you can't inline the @keyframe declaration. Bummer.
 But you CAN inline the css variables! Ok new plan: do that.
 
+### Failed to find a valid digest in the 'integrity' attribute
+
+```
+Error: Failed to find a valid digest in the 'integrity' attribute for resource 'https://isworcesterunderwater.co.uk/is_worcester_underwater-1cdf5d919e400bdd.js' with computed SHA-384 integrity 'o1xy/QFp7KNYu/uP825tZ9FqzLRRdMCY4Nnuzfd853IzOC+3Jy8mdy4a+UG1p5D/'. The resource has been blocked.
+
+Warning: The `integrity` attribute is currently ignored for preload destinations that do not support subresource integrity. See https://crbug.com/981419 for more information
+```
+When I try to load the page in chromium on the most recent build it shows a white screen. The above errors end up in the console. So I guess trunk has started doing something funky when it builds to try and optimise shit, but it's not quite supported or something?
+
+Note the page does load once in a blue moon. Probably when it tries to re-use the rust blob it already downloaded. FUCK.
