@@ -2,5 +2,4 @@ version = "0.1"
 
 [build]
 public_url = "/"
-minify="on_release"
-filehash=false
+filehash=true
