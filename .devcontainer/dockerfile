@@ -11,6 +11,11 @@ USER vscode
 RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
 ENV PATH="/home/vscode/.cargo/bin:${PATH}"
 
+## Use older version of rust since we need older version of trunk
+RUN rustup default 1.76.0
+
 ## Prepare to develop wasm applications
 RUN rustup target add wasm32-unknown-unknown
-RUN cargo install --locked trunk
+
+## Use old trunk because more recent version does something wrong with integrity hashes?
+RUN cargo install --locked trunk@0.19.1
