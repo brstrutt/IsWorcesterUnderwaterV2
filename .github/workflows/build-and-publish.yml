@@ -24,12 +24,18 @@ jobs:
       steps:
         - name: Checkout
           uses: actions/checkout@v4
-        
-        - name: Run Build inside devcontainer
-          uses: devcontainers/ci@v0.3
+
+        - name: Rust setup
+          uses: hecrj/setup-rust-action@v2
           with:
-            push: never
-            runCmd: trunk build --release
+            targets: wasm32-unknown-unknown
+            rust-version: stable
+
+        - name: Trunk setup
+          run: cargo install --locked trunk
+
+        - name: Build
+          run: trunk build --release
 
         - name: Setup Pages
           uses: actions/configure-pages@v5
