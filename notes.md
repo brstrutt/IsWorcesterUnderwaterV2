@@ -69,5 +69,10 @@ When I try to load the page in chromium on the most recent build it shows a whit
 
 Note the page does load once in a blue moon. Probably when it tries to re-use the rust blob it already downloaded. FUCK.
 
-Fixed it by turning off integrity with `<link data-trunk rel="rust" href="Cargo.toml" data-integrity="none"/>` in the index.html. Also had to modify the devcontainer to use an old version of rust and trunk.
-TODO: dig deeper and figure out why modern rust+trunk has these issues
+Fixed it by turning off integrity with `build.no_sri=true` in the Trunk.toml.
+
+### wasm-opt failing
+
+Placing `<link data-trunk rel="rust"/>` in the index.html should work fine. Instead it breaks release builds at the wasm optimisation step.
+I have confirmed this is an issue with Yew. The example Yew counter program breaks if this single line is added. The same error does not occur when using Leptos instead of Yew.
+This isn't too much of an issue for me right now, but in future I may want to think about migrating to something else such as Dioxus. Unless Yew can fix this issue in the next release...(the last release was just over a year ago now so it's not surprising that it's a little fucked).
