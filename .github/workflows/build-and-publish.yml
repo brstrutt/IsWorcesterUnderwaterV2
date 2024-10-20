@@ -29,10 +29,10 @@ jobs:
           uses: hecrj/setup-rust-action@v2
           with:
             targets: wasm32-unknown-unknown
-            rust-version: 1.76.0
+            rust-version: stable
 
         - name: Trunk setup
-          run: cargo install --locked trunk@0.19.1
+          run: cargo install --locked trunk
 
         - name: Build
           run: trunk build --release

@@ -1,5 +1,5 @@
-version = "0.1"
+trunk-version = "*"
 
 [build]
 public_url = "/"
-filehash=true
+no_sri=true
