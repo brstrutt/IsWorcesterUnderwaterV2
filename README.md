@@ -1,6 +1,7 @@
 # IsWorcesterUnderwaterV2
 
 ![GitHub Last Commit](https://img.shields.io/github/last-commit/brstrutt/IsWorcesterUnderwaterV2?logo=github)
+![Build and Publish](https://github.com/brstrutt/IsWorcesterUnderwaterV2/actions/workflows/build-and-publish.yml/badge.svg?branch=main)
 
 A rewrite of [isworcesterunderwater.co.uk](https://isworcesterunderwater.co.uk) to be a static site built using Rust and Yew.
 
