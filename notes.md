@@ -68,3 +68,6 @@ Warning: The `integrity` attribute is currently ignored for preload destinations
 When I try to load the page in chromium on the most recent build it shows a white screen. The above errors end up in the console. So I guess trunk has started doing something funky when it builds to try and optimise shit, but it's not quite supported or something?
 
 Note the page does load once in a blue moon. Probably when it tries to re-use the rust blob it already downloaded. FUCK.
+
+Fixed it by turning off integrity with `<link data-trunk rel="rust" href="Cargo.toml" data-integrity="none"/>` in the index.html. Also had to modify the devcontainer to use an old version of rust and trunk.
+TODO: dig deeper and figure out why modern rust+trunk has these issues
