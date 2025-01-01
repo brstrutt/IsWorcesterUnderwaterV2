@@ -6,20 +6,50 @@ mod height_to_screenspace;
 
 use yew::prelude::*;
 
-use crate::flood_monitoring_api::LatestReading;
+use crate::flood_monitoring_api;
 
 use self::wave_animation::WaveAnimation;
 
 #[derive(Properties, PartialEq)]
 pub struct BackgroundProps {
-    pub barbourne_last_reading: LatestReading,
-    pub diglis_last_reading: LatestReading
+    pub barbourne_last_reading: Result<flood_monitoring_api::LatestReading, String>,
+    pub diglis_last_reading: Result<flood_monitoring_api::LatestReading, String>
 }
 
 #[function_component(Background)]
 pub fn river_level_display_background(BackgroundProps {barbourne_last_reading, diglis_last_reading}: &BackgroundProps) -> Html {
+    if barbourne_last_reading.is_err() {
+        return html! {<ErrorBackground/>};
+    }
+    if diglis_last_reading.is_err() {
+        return html! {<ErrorBackground/>};
+    }
+
+    let barbourne_last_reading = barbourne_last_reading.clone().unwrap();
+    let diglis_last_reading = diglis_last_reading.clone().unwrap();
+
+    html! {
+        <>
+            <LoadedBackground
+                barbourne_last_reading={barbourne_last_reading}
+                diglis_last_reading={diglis_last_reading}
+            />
+        </>
+    }
+}
+
+
+#[derive(Properties, PartialEq)]
+pub struct LoadedBackgroundProps {
+    pub barbourne_last_reading: flood_monitoring_api::LatestReading,
+    pub diglis_last_reading: flood_monitoring_api::LatestReading,
+}
+
+#[function_component(LoadedBackground)]
+fn loaded(LoadedBackgroundProps {barbourne_last_reading, diglis_last_reading}: &LoadedBackgroundProps) -> Html {
     let barbourne_range = height_to_screenspace::HeightRange{normal_level: 2.0, risky_level: 4.0};
     let diglis_range = height_to_screenspace::HeightRange{normal_level: 1.5, risky_level: 3.3};
+
 
     let wave_animation = use_memo(
         (*barbourne_last_reading, *diglis_last_reading), 
@@ -44,6 +74,30 @@ pub fn river_level_display_background(BackgroundProps {barbourne_last_reading, d
                 <waves::SolubleText
                     shown_above_water="No"
                     shown_below_water="Yes"
+                />
+            </div>
+        </>
+    }
+}
+
+#[function_component(ErrorBackground)]
+fn error() -> Html {
+    let barbourne_range = height_to_screenspace::HeightRange{normal_level: 2.0, risky_level: 4.0};
+    let diglis_range = height_to_screenspace::HeightRange{normal_level: 1.5, risky_level: 3.3};
+
+    html! {
+        <>
+            <div
+                class="full_canvas"
+            >
+                <waves::Waves/>
+                <depth_meter::RiverLevelMarkers
+                    left_marker_range={barbourne_range}
+                    right_marker_range={diglis_range}
+                />
+                <waves::SolubleText
+                    shown_above_water="ERROR"
+                    shown_below_water="ERROR"
                 />
             </div>
         </>

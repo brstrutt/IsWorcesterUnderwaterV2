@@ -1,10 +1,10 @@
 use yew::prelude::*;
-use crate::flood_monitoring_api::LatestReading;
+use crate::{flood_monitoring_api, page::Promise};
 
 #[derive(Properties, PartialEq)]
 pub struct HeaderProps {
-    pub barbourne_last_reading: Option<LatestReading>,
-    pub diglis_last_reading: Option<LatestReading>
+    pub barbourne_last_reading: Promise<flood_monitoring_api::LatestReading>,
+    pub diglis_last_reading: Promise<flood_monitoring_api::LatestReading>
 }
 
 #[function_component(Header)]
@@ -17,8 +17,9 @@ pub fn header(HeaderProps {barbourne_last_reading, diglis_last_reading}: &Header
                 </a>
                 {
                     match barbourne_last_reading {
-                        Some(river_level) => format!(": {:?}M", river_level.value),
-                        _ => format!(": ?.???M")
+                        Promise::Loading => format!(": ?.???M"),
+                        Promise::Error => format!(": ERROR!"),
+                        Promise::Data(river_level) => format!(": {:?}M", river_level.value),
                     }
                 }
             </div>
@@ -28,8 +29,9 @@ pub fn header(HeaderProps {barbourne_last_reading, diglis_last_reading}: &Header
                 </a>
                 {
                     match diglis_last_reading {
-                        Some(river_level) => format!(": {:?}M", river_level.value),
-                        _ => format!(": ?.???M")
+                        Promise::Loading => format!(": ?.???M"),
+                        Promise::Error => format!(": ERROR!"),
+                        Promise::Data(river_level) => format!(": {:?}M", river_level.value),
                     }
                 }
             </div>
