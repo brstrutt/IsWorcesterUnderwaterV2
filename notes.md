@@ -76,3 +76,12 @@ Fixed it by turning off integrity with `build.no_sri=true` in the Trunk.toml.
 Placing `<link data-trunk rel="rust"/>` in the index.html should work fine. Instead it breaks release builds at the wasm optimisation step.
 I have confirmed this is an issue with Yew. The example Yew counter program breaks if this single line is added. The same error does not occur when using Leptos instead of Yew.
 This isn't too much of an issue for me right now, but in future I may want to think about migrating to something else such as Dioxus. Unless Yew can fix this issue in the next release...(the last release was just over a year ago now so it's not surprising that it's a little fucked).
+
+### The 'Access-Control-Allow-Origin' header contains multiple values
+
+This is the error message that two days ago started popped up when the site tried to download data from the environment agency flood and river level API.
+Disabling CORS does not work. The error goes away but the data doesn't show up.
+Calling "fetch" through the JS console fails.
+Postman works. CURL works.
+
+My current thinking after looking at this for like 3 hours is that I can't fix it and just have to wait for the API to fix itself...or I have to create a backend webservice that calls the API for me, and that this website then pokes to get the river level data. Too much work.
