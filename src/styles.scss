@@ -21,8 +21,8 @@ footer {
     width: 100%;
     font-size: 11px;
 
-    display: grid;
-    grid-template-columns: auto auto;
+    display: flex;
+    justify-content: space-between;
     gap: 1%;
     background-color: var(--color-palette-background2);
 }
