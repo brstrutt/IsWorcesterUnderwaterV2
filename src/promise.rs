@@ -18,6 +18,7 @@ impl<T: Clone> Promise<T> {
         match self {
             Promise::Loading => Err(String::from("Promise was turned into Future while still loading. Dont do that.")),
             Promise::Data(data) => Ok(data.clone()),
+            // TODO: Store the error string in the object. This will break the "Copy" trait, and you'll need to figure out how to pass it as a prop without that trait.
             Promise::Error => Err(String::from("An error happened. I don't know what. Check the logs.")),
         }
     }
