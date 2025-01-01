@@ -1,5 +1,5 @@
 use yew::prelude::*;
-use crate::{flood_monitoring_api, page::Promise};
+use crate::{flood_monitoring_api, promise::Promise};
 
 #[derive(Properties, PartialEq)]
 pub struct HeaderProps {

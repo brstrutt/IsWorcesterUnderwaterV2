@@ -5,6 +5,7 @@ mod page;
 mod header;
 mod river_level_display;
 mod footer;
+mod promise;
 
 #[function_component(App)]
 fn app() -> Html {
