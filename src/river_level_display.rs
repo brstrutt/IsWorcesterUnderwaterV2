@@ -18,23 +18,15 @@ pub struct BackgroundProps {
 
 #[function_component(Background)]
 pub fn river_level_display_background(BackgroundProps {barbourne_last_reading, diglis_last_reading}: &BackgroundProps) -> Html {
-    if barbourne_last_reading.is_err() {
+    if barbourne_last_reading.is_err() || diglis_last_reading.is_err() {
         return html! {<ErrorBackground/>};
     }
-    if diglis_last_reading.is_err() {
-        return html! {<ErrorBackground/>};
-    }
-
-    let barbourne_last_reading = barbourne_last_reading.clone().unwrap();
-    let diglis_last_reading = diglis_last_reading.clone().unwrap();
 
     html! {
-        <>
-            <LoadedBackground
-                barbourne_last_reading={barbourne_last_reading}
-                diglis_last_reading={diglis_last_reading}
-            />
-        </>
+        <LoadedBackground
+            barbourne_last_reading={barbourne_last_reading.clone().unwrap()}
+            diglis_last_reading={diglis_last_reading.clone().unwrap()}
+        />
     }
 }
 
