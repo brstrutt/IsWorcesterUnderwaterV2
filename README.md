@@ -30,7 +30,6 @@ A rewrite of [isworcesterunderwater.co.uk](https://isworcesterunderwater.co.uk) 
 - Yew v0.21.0 is the latest version and has some issues 
   - specifying properties in the index.html breaks release builds due to code optimisation failure
   - SRI needs to be turned off to avoid "this wasm file checksum doesn't match the one calculated at build time" errors
-- The API just broke their CORS config, so now the browser cannot load data from their API? The only fix would be creating our own backend service that hits the API using CURL, and then update the website to hit our service rather than the gov one. Or we just wait and hope they fix it.
 
 ## Previous version
 
