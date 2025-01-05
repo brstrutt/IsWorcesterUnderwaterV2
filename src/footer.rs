@@ -10,18 +10,6 @@ pub fn footer() -> Html {
                     <img src="/assets/GitHub-Mark-Light-64px.png" title="Github" alt="Github Logo" width="12px" height="12px"/>
                 </a>
             </div>
-            <div class="float_right">
-                <div>
-                    { "Icons made by "}
-                    <a href="https://www.flaticon.com/authors/catkuro" title="catkuro">
-                        { "catkuro" }
-                    </a>
-                        { " from " }
-                    <a href="https://www.flaticon.com/" title="Flaticon">
-                        { "www.flaticon.com" }
-                    </a>
-                </div>
-            </div>
         </footer>
     }
 }
