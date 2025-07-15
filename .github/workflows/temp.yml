@@ -21,18 +21,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Configure git
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
       - name: Create pending mappings sql
         run: |
-          git checkout -b "$NEW_BRANCH_NAME"
           echo "--TODO: actually put SQL here" >> ./testing-$UNIQUE_RUN_SUFFIX.pending.sql
-          git add .
-          git commit -m "chore(db)[sc-${{ inputs.shortcut-ticket-number }}]: add new CSCS mappings from sentry"
-          git push --set-upstream origin $NEW_BRANCH_NAME
+
       - name: create pull request
         run: gh pr create -B "main" -H "$NEW_BRANCH_NAME" --title 'Test PR' --body 'PR to Do some FUN things (Created by Github action)'
         env:
