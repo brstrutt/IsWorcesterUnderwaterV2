@@ -47,7 +47,6 @@ jobs:
 
       - name: Create Pull Request
         id: create_pr
-        if: steps.check_changed.outputs.changes_detected == 'true' && github.event.inputs.silent == false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -55,8 +54,3 @@ jobs:
             --title "More Test PR" \
             --body "PR to Do some even more FUN things (Created by Github action)"')
           echo "url=$PR_URL" >> $GITHUB_OUTPUT
-
-      - name: create pull request
-        run: gh pr create -B "main" -H "$GITHUB_BRANCH" --title 'Test PR' --body 'PR to Do some FUN things (Created by Github action)'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
