@@ -50,7 +50,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          PR_URL=$(gh pr create --base main --head ${{ env.GITHUB_BRANCH }}\
-            --title "More Test PR" \
-            --body "PR to Do some even more FUN things (Created by Github action)"')
+          PR_URL=$(\
+            gh pr create --base main --head ${{ env.GITHUB_BRANCH }}\
+              --title "More Test PR" \
+              --body "PR to Do some even more FUN things (Created by Github action)"\
+            | grep -o 'https://github.com/.*'\
+          )
           echo "url=$PR_URL" >> $GITHUB_OUTPUT
