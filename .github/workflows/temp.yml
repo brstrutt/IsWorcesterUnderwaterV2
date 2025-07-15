@@ -18,8 +18,14 @@ jobs:
       UNIQUE_RUN_SUFFIX: "${{ github.run_id }}-${{ github.run_attempt }}"
       NEW_BRANCH_NAME: "sc-${{ inputs.shortcut-ticket-number }}/add-cscs-mappings-$UNIQUE_RUN_SUFFIX"
     steps:
-      - name: Checkout cod
+      - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: Create pending mappings sql
         run: |
           git checkout -b "$NEW_BRANCH_NAME"
