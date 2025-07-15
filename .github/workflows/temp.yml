@@ -8,15 +8,16 @@ on:
         type: string
         required: true
 
-permissions:
-  pull-requests: write
+env:
+  UNIQUE_RUN_SUFFIX: "${{ github.run_id }}-${{ github.run_attempt }}"
+  GITHUB_BRANCH: "sc-${{ inputs.shortcut-ticket-number }}/add-cscs-mappings-$UNIQUE_RUN_SUFFIX"
 
 jobs:
   create-cscs-mappings-pr:
     runs-on: ubuntu-latest
-    env:
-      UNIQUE_RUN_SUFFIX: "${{ github.run_id }}-${{ github.run_attempt }}"
-      NEW_BRANCH_NAME: "sc-${{ inputs.shortcut-ticket-number }}/add-cscs-mappings-$UNIQUE_RUN_SUFFIX"
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -25,7 +26,37 @@ jobs:
         run: |
           echo "--TODO: actually put SQL here" >> ./testing-$UNIQUE_RUN_SUFFIX.pending.sql
 
+      - name: Setup git config
+        run: |
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'action@github.com'
+
+      - name: Create a new branch
+        run: git checkout -b ${{ env.GITHUB_BRANCH }}
+
+      - name: Commit Changes
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add ./testing-$UNIQUE_RUN_SUFFIX.pending.sql
+
+      - name: Commit and Push changes
+        run: |
+          git commit -m "Testing commit please work. Please. Please."
+          git push --set-upstream origin ${{ env.GITHUB_BRANCH }}
+
+      - name: Create Pull Request
+        id: create_pr
+        if: steps.check_changed.outputs.changes_detected == 'true' && github.event.inputs.silent == false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_URL=$(gh pr create --base main --head ${{ env.GITHUB_BRANCH }}\
+            --title "Test PR" \
+            --body "PR to Do some FUN things (Created by Github action)"')
+          echo "url=$PR_URL" >> $GITHUB_OUTPUT
+
       - name: create pull request
-        run: gh pr create -B "main" -H "$NEW_BRANCH_NAME" --title 'Test PR' --body 'PR to Do some FUN things (Created by Github action)'
+        run: gh pr create -B "main" -H "$GITHUB_BRANCH" --title 'Test PR' --body 'PR to Do some FUN things (Created by Github action)'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
