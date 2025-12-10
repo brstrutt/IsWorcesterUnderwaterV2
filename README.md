@@ -5,6 +5,10 @@
 
 A rewrite of [isworcesterunderwater.co.uk](https://isworcesterunderwater.co.uk) to be a static site built using Rust and Yew.
 
+This website shows the current river levels at the river monitoring stations either side of Worcester (Barbourne and Diglis), and shows an estimate of whether or not the city is currently flooding.
+<img width="1882" height="904" alt="image" src="https://github.com/user-attachments/assets/ff2b77a3-9f3f-4e45-bd49-394c5760fe3c" />
+
+
 ## Development
 
 1. Clone the repo
